@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "name": "Anthony Davis",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6583.png&w=350&h=254"
+  },
+  {
+    "id": 2,
+    "name": "Giannis Antetokounmpo",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3032977.png&w=350&h=254"
+  },
+  {
+    "id": 3,
+    "name": "James Harden",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3992.png&w=350&h=254"
+  },
+  {
+    "id": 4,
+    "name": "Kawhi Leonard",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6450.png&w=350&h=254"
+  },
+  {
+    "id": 5,
+    "name": "Lebron James",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png&w=350&h=254"
+  },
+  {
+    "id": 6,
+    "name": "Russel Westbrook",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3468.png&w=350&h=254"
+  },
+  {
+    "id": 7,
+    "name": "Nikola Jokic",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3112335.png&w=350&h=254"
+  },
+  {
+    "id": 8,
+    "name": "Damian Lillard",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6606.png&w=350&h=254"
+  },
+  {
+    "id": 9,
+    "name": "Jimmy Butler",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6430.png&w=350&h=254"
+  },
+  {
+    "id": 10,
+    "name": "Luka Doncic",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3945274.png&w=350&h=254"
+  },
+  {
+    "id": 11,
+    "name": "Joel Embiid",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3059318.png&w=350&h=254"
+  },
+  {
+    "id": 12,
+    "name": "Rudy Gobert",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3032976.png&w=350&h=254"
+  },
+  {
+    "id": 13,
+    "name": "Chris Paul",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2779.png&w=350&h=254"
+  },
+  {
+    "id": 14,
+    "name": "Brandom Ingram",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3913176.png&w=350&h=254"
+  },
+  {
+    "id": 15,
+    "name": "Kemba Walker",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6479.png&w=350&h=254"
+  },
+  {
+    "id": 16,
+    "name": "Pascal Siakam",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3149673.png&w=350&h=254"
+  },
+
+  {
+    "id": 17,
+    "name": "Ben Simmons",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3907387.png&w=350&h=254"
+  },
+  {
+    "id": 18,
+    "name": "Jason Tatum",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4065648.png&w=350&h=254"
+  },
+  {
+    "id": 19,
+    "name": "Donovan Mitchell",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3908809.png&w=350&h=254"
+  },
+  {
+    "id": 20,
+    "name": "Trae Young",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4277905.png&w=350&h=254"
+  },
+  {
+    "id": 21,
+    "name": "Kyle Lowry",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3012.png&w=350&h=254"
+  },
+  {
+    "id": 22,
+    "name": "Khris Middleton",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6609.png&w=350&h=254"
+  },
+  {
+    "id": 23,
+    "name": "Bam Adebayo",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4066261.png&w=350&h=254"
+  },
+  {
+    "id": 24,
+    "name": "Devin Booker",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3136193.png&w=350&h=254"
+  },
+  {
+    "id": 25,
+    "name": "Domantas Sabonis",
+    "image": "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3155942.png&w=350&h=254"
+  }
+]

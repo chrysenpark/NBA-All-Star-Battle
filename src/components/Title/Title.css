@@ -1,0 +1,18 @@
+h1 {
+  margin-top: 0px;
+}
+
+img {
+  width: 100%;
+  image-rendering: url("https://specials-images.forbesimg.com/imageserve/5e36e0b9f133f400076b6c82/960x0.jpg?fit=scale");
+}
+
+.header {
+  width: 100%;
+  background-image: url("https://specials-images.forbesimg.com/imageserve/5e36e0b9f133f400076b6c82/960x0.jpg?fit=scale");
+  text-align: center;
+  font-size: large;
+  color: #f8f7f7;
+  padding: 240px;
+  margin-bottom: 20px;
+}
