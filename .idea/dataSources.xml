@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="nba-battle@localhost" uuid="ea110fd1-b9bc-4bcf-9dd6-d7660a200d2a">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/nba-battle</jdbc-url>
+      <time-zone>UTC-7</time-zone>
+    </data-source>
+  </component>
+</project>
