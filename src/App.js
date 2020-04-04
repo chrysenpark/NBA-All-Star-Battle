@@ -21,6 +21,7 @@ class App extends Component {
     score: 15,
     result: "win"
   };
+  playerStats = [];
   playersOnTeam1 = [];
   playersOnTeam2 = [];
   playerImages1 = [];
@@ -33,6 +34,20 @@ class App extends Component {
     "Your team is unbeatable! already",
     "Winning pick"
   ];
+
+    async componentDidMount() {
+        let r = await fetch('http://192.168.0.16:5000/playerStats');
+        this.playerStats = await r.json();
+        console.log(this.playerStats);
+        // fetch('http://localhost:5000/playerStats')
+        //     .then(response => response.json())
+        //     .then(response => this.playerStats = response)
+        //     .catch(err => console.error(err));
+    };
+
+    // async componentDidMount() {
+    //     this.getStats();
+    // }
 
   recordScore = id => {
     let maxTeamSize = 5;
@@ -101,6 +116,8 @@ class App extends Component {
       }
     }
   };
+
+
 
   // Map over this.state.pics and render a Pic component for each player
   render() {
