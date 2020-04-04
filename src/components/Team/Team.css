@@ -1,26 +1,27 @@
-.card {
+.selected {
   background: #fff;
   border-radius: 2px;
-  height: 210px;
-  margin: 1rem;
+  height: 150px;
+  margin: 2rem;
+
   position: relative;
   width: 170px;
   box-shadow: 0 3px 6px #999, 0 3px 6px #999;
   text-align: left;
 }
 
-.card > .img-container {
+.selected > .img-container {
   height: 100%;
   overflow: hidden;
   text-align: center;
-  background: rgb(253, 253, 253);
+  background: rgb(218, 203, 5);
 }
 
-.card > .img-container > img {
+.selected > .img-container > img {
   width: 110%;
 }
 
-.card:hover {
+.selected:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
