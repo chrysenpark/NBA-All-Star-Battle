@@ -24,6 +24,7 @@ app.get('/test', function(req, res) {
 
 // Get all data from Player table
 app.get('/player', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     connection.getConnection(function(err, conn) {
         if (err) {
             return res.sendStatus(400);
@@ -46,6 +47,8 @@ app.get('/player', function(req, res) {
 
 // Get all data from Coach table
 app.get('/coach', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
     connection.getConnection(function(err, conn) {
         if (err) return res.sendStatus(400);
 
@@ -63,27 +66,47 @@ app.get('/coach', function(req, res) {
     });
 });
 
-app.post('/addToTeam', function(req, res) {
+// Get player stats. This is what is stored in App.js as 'playerStats'
+app.get('/playerStats', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     connection.getConnection(function(err, conn) {
-        if (err) return res.sendStatus(400);
-
-        // Execute UPDATE statement -- updating a Client tuple with player IDs, accessing by User ID
-        conn.query("UPDATE Client SET player1id = req.body.player1id WHERE UserID = req.body.id", function(err, results) {
-            if (err) return res.sendStatus(404);
-            res.send(JSON.stringify(results));
+        if (err) throw err;
+        conn.query('SELECT name, Cost, Points, Rebounds, Assists, Steals, Blocks, YrsPro, Ranking FROM Player ORDER BY Ranking', function(err, results) {
+            if (err) throw err;
+            res.json(results);
         });
     });
 });
 
-// This should be in app.js, just here for conflict resolution
-// test() {
-//     fetch('http://192.168.0.16:5000/player')
-//         .then(response => response.json())
-//         .then(playerData => this.setState({players: playerData}));
-// };
+// Get player names, costs and Rankings (ID)
+app.get('/playerCosts', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    connection.getConnection(function(err, conn) {
+        if (err) throw err;
+        conn.query('SELECT name, Cost, Ranking FROM Player ORDER BY Ranking', function(err, results) {
+            if (err) throw err;
+            res.json(results);
+        });
+    });
+});
+
+// INSERT statements when a Player is added to a Team
+// app.get('/addToTeam', function(req, res) {
+//     connection.getConnection(function(err, conn) {
+//         if (err) return res.sendStatus(400);
+//
+//         // Execute UPDATE statement -- updating a Client tuple with player IDs, accessing by User ID
+//         conn.query("UPDATE Client SET player1id = req.body.player1id WHERE UserID = req.body.id", function(err, results) {
+//             if (err) return res.sendStatus(404);
+//             res.send(JSON.stringify(results));
+//         });
+//     });
+// });
 
 app.listen(5000, () => {
     console.log('Go to http://localhost:5000/test to see HELLO WORLD.');
     console.log('Go to http://192.168.0.16:5000/player to see player data');
     console.log('Go to http://localhost:5000/coach to see coach data');
+    console.log('Go to http://192.168.0.16:5000/playerStats to see player stats');
+    console.log('Go to http://192.168.0.16:5000/playerCosts to see player costs');
 });
