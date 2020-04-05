@@ -19,13 +19,17 @@ class App extends Component {
     pics,
     // clicked,
     score: 15,
-    result: "win"
+    result: "win",
+      team1Name: "",
+      team2Name:""
   };
   playerStats = [];
   playersOnTeam1 = [];
   playersOnTeam2 = [];
   playerImages1 = [];
   playerImages2 = [];
+  // team1Name = "Big Ballers";
+  // team2Name = "";
   clickResult = "";
   clickWinMessages = [
     "Solid Pick Up!",
@@ -35,14 +39,15 @@ class App extends Component {
     "Winning pick"
   ];
 
-    async componentDidMount() {
-        let r = await fetch('http://192.168.0.16:5000/playerStats');
+  async componentDidMount() {
+        let r = await fetch('http://localhost:5000/playerStats');
         this.playerStats = await r.json();
         console.log(this.playerStats);
         // fetch('http://localhost:5000/playerStats')
         //     .then(response => response.json())
-        //     .then(response => this.playerStats = response)
+        //     .then(result => this.playerStats = result)
         //     .catch(err => console.error(err));
+        // console.log(this.playerStats);
     };
 
     // async componentDidMount() {
@@ -109,14 +114,71 @@ class App extends Component {
       })[0];
       if (this.playersOnTeam1.length !== maxTeamSize) {
         this.playersOnTeam1.push(id);
+        console.log("Player IDs");
+        console.log(this.playersOnTeam1);
+        console.log("Index of player just added");
+        console.log(this.playersOnTeam1.length);
+        console.log("Team name");
+        console.log(this.state.team1Name);
+        this.addPlayerClient(this.state, id, this.playersOnTeam1.length);
         this.playerImages1.push(found.image);
       } else {
-        this.playersOnTeam2.push(id);
-        this.playerImages2.push(found.image);
+          this.playersOnTeam2.push(id);
+          console.log(this.playersOnTeam2);
+          console.log("Index of player just added");
+          console.log(this.playersOnTeam2.length);
+          console.log("Team name");
+          console.log(this.state.team2Name);
+          this.addPlayerOpponent(this.state, id, this.playersOnTeam2.length);
+          this.playerImages2.push(found.image);
       }
+      console.log("Team lengths");
+        console.log(this.playersOnTeam1.length);
+        console.log(this.playersOnTeam2.length);
     }
   };
 
+  addTeamClient = s => {
+      fetch(`http://localhost:5000/newTeamClient?teamName=${s.team1Name}`);
+  };
+
+  addPlayerClient = (s, pid, index) => {
+      fetch(`http://localhost:5000/addPlayerClient?teamName=${s.team1Name}&playerID=${pid}&playerIndex=${index}`);
+  };
+
+  dropPlayerClient = (s, pid, index) => {
+      fetch(`http://localhost:5000/dropPlayerClient?teamName=${s.team1Name}&playerID=${pid}&playerIndex=${index}`);
+  };
+
+  addTeamOpponent = s => {
+      fetch(`http://localhost:5000/newTeamOpponent?teamName=${s.team2Name}`);
+  };
+
+  addPlayerOpponent = (s, pid, index) => {
+      fetch(`http://localhost:5000/addPlayerOpponent?teamName=${s.team2Name}&playerID=${pid}&playerIndex=${index}`);
+  };
+
+  dropPlayerOpponent = (s, pid, index) => {
+      fetch(`http://localhost:5000/dropPlayerOpponent?teamName=${s.team2Name}&playerID=${pid}&playerIndex=${index}`);
+  };
+
+    changeTeam1Name = e => {
+        this.setState({
+            score: this.state.score,
+            result: this.state.result,
+            team1Name: e.target.value,
+            team2Name: this.state.team2Name
+        })
+    };
+
+    changeTeam2Name = e => {
+        this.setState({
+            score: this.state.score,
+            result: this.state.result,
+            team1Name: this.state.team1Name,
+            team2Name: e.target.value
+        });
+    };
 
 
   // Map over this.state.pics and render a Pic component for each player
@@ -138,6 +200,14 @@ class App extends Component {
         ))}
         <BattleTitle />
         <IndentHeading main="Team Big Ballers:" />
+          <IndentHeading main="Enter your team name!" />
+        <input type="text"
+               value={this.state.team1Name}
+                onChange = {this.changeTeam1Name.bind(this)}/>
+        <Button onClick={() => {this.addTeamClient(this.state)}}
+                type="button"
+                buttonSize="btn-small"
+        > Create your team! </Button>
         {this.playerImages1.map(player => (
           <Team image={player} />
         ))}
@@ -154,7 +224,17 @@ class App extends Component {
         </Button>
         <Button
           onClick={() => {
-            console.log("you Clicked one me");
+            console.log("Team1 dropped a player");
+              var playerRemoved = this.playersOnTeam1.pop();
+              console.log("ID of player removed:");
+              console.log(playerRemoved);
+              console.log(this.playersOnTeam1.length);
+              // which player was dropped? 1-5
+              var playerIndex = this.playersOnTeam1.length + 1;
+              console.log("Index of player removed");
+              console.log(playerIndex);
+              this.dropPlayerClient(this.state, playerRemoved, playerIndex);
+              this.playerImages1.pop();
           }}
           type="button"
           buttonStyle="btn--danger--solid"
@@ -176,6 +256,14 @@ class App extends Component {
         </Button>
 
         <IndentHeading main="Team Ankle Breakers:" />
+          <IndentHeading main="Enter your opponent's team name!" />
+          <input type="text"
+                 value={this.state.team2Name}
+                 onChange = {this.changeTeam2Name.bind(this)}/>
+          <Button onClick={() => {this.addTeamOpponent(this.state)}}
+                  type="button"
+                  buttonSize="btn-small"
+          > Create your opponent's team! </Button>
         {this.playerImages2.map(player => (
           <Team2 image={player} />
         ))}
@@ -193,6 +281,15 @@ class App extends Component {
         <Button
           onClick={() => {
             console.log("you Clicked one me");
+            var playerRemoved = this.playersOnTeam2.pop();
+              console.log("ID of player removed:");
+            console.log(playerRemoved);
+            console.log(this.playersOnTeam2.length);
+              var playerIndex = this.playersOnTeam2.length + 1;
+              console.log("Index of player removed:");
+              console.log(playerIndex);
+              this.dropPlayerOpponent(this.state, playerRemoved, playerIndex);
+            this.playerImages2.pop();
           }}
           type="button"
           buttonStyle="btn--danger--solid"
