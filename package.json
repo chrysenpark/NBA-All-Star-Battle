@@ -1,5 +1,5 @@
 {
-  "name": "click-pic",
+  "name": "nba-battle",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -23,14 +23,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dbailey25/Click-Pic.git"
+    "url": "git+https://github.com/chrysenpark/NBA-All-Star-Battle"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dbailey25/Click-Pic/issues"
+    "url": "https://github.com/chrysenpark/NBA-All-Star-Battle"
   },
-  "homepage": "https://dbailey25.github.io/Click-Pic",
+  "homepage": "https://github.com/chrysenpark/NBA-All-Star-Battle",
   "browserslist": {
     "production": [
       ">0.2%",
