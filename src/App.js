@@ -18,7 +18,10 @@ class App extends Component {
         budget: 15,
         budget2: 15,
         result: "win",
-        value: ""
+        value: "",
+        team: "",
+        stats: "",
+        range: ""
     };
   playersOnTeam1 = [];
   playersOnTeam2 = [];
@@ -199,30 +202,61 @@ class App extends Component {
       fetch(`http://localhost:5000/dropLastOpponent?playerIndex=${index}&firstID=${firstID}`);
   };
 
+  async playersOnTeam(s) {
+      let r = await fetch(`http://localhost:5000/playersOnTeam?team=${s.team}`);
+      let res = await r.json();
+      console.log("query results");
+      console.log(res);
+  };
+
     handleSubmit(event) {
         alert("Team" + this.state.team);
         event.preventDefault();
     }
 
     handleChange = (event) => {
-        this.setState({ value: event.target.team });
+        console.log(event.target.team);
+        this.setState({ team: event.target.team });
+        console.log(this.state.team);
+        this.playersOnTeam(this.state);
     };
 
+    async stats(s) {
+        let r = await fetch(`http://localhost:5000/stats?stat=${s.stats}`);
+        let res = await r.json();
+        console.log("query results");
+        console.log(res);
+    }
+
     handleSubmit1(event) {
-        alert("stats" + this.state.stat);
+        alert("stats" + this.state.stats);
         event.preventDefault();
     }
 
     handleChange1 = (event) => {
-        this.setState({ value1: event.target.stat });
+        console.log(event.target.stat);
+        this.setState({ stats: event.target.stat });
+        console.log(this.state.stat);
+        this.stats(this.state);
     };
+
+    async statsInRange(s) {
+        let r = await fetch(`http://localhost:5000/statsInRange?stat=${s.stats}&range=${s.range}`);
+        let res = await r.json();
+        console.log("query results");
+        console.log(res);
+    }
+
     handleSubmit2(event) {
         alert("Range" + this.state.range);
         event.preventDefault();
     }
 
     handleChange2 = (event) => {
+        console.log(event.target.range);
         this.setState({ value: event.target.range });
+        console.log(this.state.range);
+        this.statsInRange(this.state);
     };
 
     // Map over this.state.players and render a player component for each player
@@ -238,7 +272,7 @@ class App extends Component {
                     <select team={this.state.team} onChange={this.handleChange}>
                         <option team="all">All</option>
                         <option team="Lakers">Lakers</option>
-                        <option team="Clippers">Clipers</option>
+                        <option team="Clippers">Clippers</option>
                         <option team="Bucks">Bucks</option>
                         <option team="Rockets">Rockets</option>
                         <option team="Mavericks">Mavericks</option>
@@ -256,7 +290,7 @@ class App extends Component {
                 </label>
                 <label>
                     Stats:
-                    <select stat={this.state.stat} onChange={this.handleChange1}>
+                    <select stat={this.state.stats} onChange={this.handleChange1}>
                         <option stat="all">All</option>
                         <option stat="PPG">PPG</option>
                         <option stat="RPG">RPG</option>
@@ -272,6 +306,7 @@ class App extends Component {
                         <option range="15-20">15-20</option>
                         <option range="20-25">20-25</option>
                         <option range="25-30">25-30</option>
+                        <option range="30-35">30-35</option>
                     </select>
                 </label>
                 <Message message={this.clickResult} result={this.state.result} />

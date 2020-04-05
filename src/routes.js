@@ -7,7 +7,7 @@ const connection = mysql.createPool({
     port:3306,
     user:'root',
     database:'nbabattle',
-    password:'yourpasswordhere',
+    password:'beinrodriguez12',
     // queueLimit: 0,
     connectionLimit: 0
     // insecureAuth: true
@@ -30,6 +30,127 @@ app.get('/playerStats', function(req, res) {
         conn.query('SELECT name, Cost, Points, Rebounds, Assists, Steals, Blocks, YrsPro, Image, Ranking FROM Player ORDER BY Ranking', function(err, results) {
             if (err) throw err;
             res.json(results);
+        });
+    });
+});
+
+app.get('/playersOnTeam', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    const {team} = req.query;
+    console.log(team);
+    const SELECT_QUERY = `SELECT * FROM Player_isOn WHERE TeamName = '${team}'`;
+    console.log(SELECT_QUERY);
+    connection.getConnection(function(err, conn){
+        if (err) throw err;
+        conn.query(SELECT_QUERY,  function(err, results){
+            if (err) throw err;
+            res.send(results);
+        });
+    });
+});
+
+app.get('/stats', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    const {stat} = req.query;
+    console.log(stat);
+    let PROJECT_QUERY;
+    switch (stat) {
+        case "All":
+            PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks FROM Player ORDER BY Points DESC`;
+            break;
+        case "PPG":
+            PROJECT_QUERY = `SELECT Name, Points FROM Player ORDER BY Points DESC`;
+            break;
+        case "RPG":
+            PROJECT_QUERY = `SELECT Name, Rebounds FROM Player ORDER BY Rebounds DESC`;
+            break;
+        case "APG":
+            PROJECT_QUERY = `SELECT Name, Assists FROM Player ORDER BY Assists DESC`;
+            break;
+        case "SPG":
+            PROJECT_QUERY = `SELECT Name, Steals FROM Player ORDER BY Steals DESC`;
+            break;
+        case "BPG":
+            PROJECT_QUERY = `SELECT Name, Blocks FROM Player ORDER BY Blocks DESC`;
+            break;
+        default:
+            PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks FROM Player ORDER BY Points DESC`;
+            break;
+    }
+    console.log(PROJECT_QUERY);
+    connection.getConnection(function(err, conn){
+        if (err) throw err;
+        conn.query(PROJECT_QUERY, function(err, results){
+            if (err) throw err;
+            res.send(results);
+        });
+    });
+});
+
+app.get('/statsInRange', function(req,res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    const {stat, range} = req.query;
+    console.log({stat, range});
+    let PROJECT_QUERY;
+    if (range === "All") {
+        switch (stat) {
+            case "All":
+                PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks FROM Player ORDER BY Points DESC`;
+                break;
+            case "PPG":
+                PROJECT_QUERY = `SELECT Name, Points FROM Player ORDER BY Points DESC`;
+                break;
+            case "RPG":
+                PROJECT_QUERY = `SELECT Name, Rebounds FROM Player ORDER BY Rebounds DESC`;
+                break;
+            case "APG":
+                PROJECT_QUERY = `SELECT Name, Assists FROM Player ORDER BY Assists DESC`;
+                break;
+            case "SPG":
+                PROJECT_QUERY = `SELECT Name, Steals FROM Player ORDER BY Steals DESC`;
+                break;
+            case "BPG":
+                PROJECT_QUERY = `SELECT Name, Blocks FROM Player ORDER BY Blocks DESC`;
+                break;
+            default:
+                PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks FROM Player ORDER BY Points DESC`;
+                break;
+        }
+    } else {
+        let lb = range.split("-")[0];
+        let ub = range.split("-")[1];
+        console.log(lb);
+        console.log(ub);
+        switch (stat) {
+            case "All":
+                PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks FROM Player ORDER BY Points DESC`;
+                break;
+            case "PPG":
+                PROJECT_QUERY = `SELECT Name, Points FROM Player WHERE Points >= ${lb} && Points <= ${ub} ORDER BY Points DESC`;
+                break;
+            case "RPG":
+                PROJECT_QUERY = `SELECT Name, Rebounds FROM Player WHERE Rebounds >= ${lb} && Rebounds <= ${ub} ORDER BY Rebounds DESC`;
+                break;
+            case "APG":
+                PROJECT_QUERY = `SELECT Name, Assists FROM Player WHERE Assists >= ${lb} && Assists <= ${ub}ORDER BY Assists DESC`;
+                break;
+            case "SPG":
+                PROJECT_QUERY = `SELECT Name, Steals FROM Player WHERE Steals >= ${lb} && Steals <= ${ub} ORDER BY Steals DESC`;
+                break;
+            case "BPG":
+                PROJECT_QUERY = `SELECT Name, Blocks FROM Player WHERE Blocks >= ${lb} && Blocks <= ${ub}ORDER BY Blocks DESC`;
+                break;
+            default:
+                PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks FROM Player ORDER BY Points DESC`;
+                break;
+        }
+    }
+    console.log(PROJECT_QUERY);
+    connection.getConnection(function(err, conn){
+        if (err) throw err;
+        conn.query(PROJECT_QUERY, function(err, results){
+            if (err) throw err;
+            res.send(results);
         });
     });
 });
@@ -235,4 +356,5 @@ app.listen(5000, () => {
     console.log('Go to http://localhost:5000/coach to see coach data');
     console.log('Go to http://192.168.0.16:5000/playerStats to see player stats');
     console.log('Go to http://192.168.0.16:5000/playerCosts to see player costs');
+    console.log('Go to http://localhost:5000/playersOnTeam?team=Lakers to see team dropDown Data');
 });
