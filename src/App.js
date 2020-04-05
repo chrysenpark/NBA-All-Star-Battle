@@ -18,10 +18,9 @@ class App extends Component {
     budget: 15,
     budget2: 15,
     result: "win",
-    value: "",
-    team: "",
-    stats: "",
-    range: "",
+    team: "All",
+    stats: "All",
+    range: "All",
   };
   playersOnTeam1 = [];
   playersOnTeam2 = [];
@@ -276,7 +275,7 @@ class App extends Component {
 
   handleChange2 = (event) => {
     console.log(event.target.range);
-    this.setState({ value: event.target.range });
+    this.setState({ range: event.target.range });
     console.log(this.state.range);
     this.statsInRange(this.state);
   };
@@ -366,14 +365,6 @@ class App extends Component {
         <Message message={this.clickPlay} result={this.state.fail} />
         <BattleTitle />
         <IndentHeading main="Team Big Ballers:" />
-        {/*<IndentHeading main="Enter your team name!" />*/}
-        {/*<input type="text"*/}
-        {/*       value={this.state.team1Name}*/}
-        {/*       onChange = {this.changeTeam1Name.bind(this)}/>*/}
-        {/*<Button onClick={() => {this.addTeamClient(this.state)}}*/}
-        {/*        type="button"*/}
-        {/*        buttonSize="btn-small"*/}
-        {/*> Create your team! </Button>*/}
         {this.playerImages1.map((player) => (
           <Team image={player} />
         ))}
@@ -484,14 +475,6 @@ class App extends Component {
           Show Total Team Stats
         </Button>
         <IndentHeading main="Team Ankle Breakers:" />
-        {/*<IndentHeading main="Enter your opponent's team name!" />*/}
-        {/*<input type="text"*/}
-        {/*       value={this.state.team2Name}*/}
-        {/*       onChange = {this.changeTeam2Name.bind(this)}/>*/}
-        {/*<Button onClick={() => {this.addTeamOpponent(this.state)}}*/}
-        {/*        type="button"*/}
-        {/*        buttonSize="btn-small"*/}
-        {/*> Create your opponent's team! </Button>*/}
         {this.playerImages2.map((player) => (
           <Team2 image={player} />
         ))}
