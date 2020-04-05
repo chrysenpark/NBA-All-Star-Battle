@@ -4,7 +4,10 @@ import "./Buttons.css";
 const Styles = [
   "btn--primary--solid",
   "btn--warning--solid",
-  "btn--danger--solid"
+  "btn--danger--solid",
+  "btn--play--solid",
+  "btn--team--solid",
+  "btn--rank--solid",
 ];
 
 const Sizes = ["btn--small", "btn--medium"];

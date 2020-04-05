@@ -2,6 +2,11 @@
   --primary: #4628ff;
   --warning: #21d139;
   --danger: #eb3f27;
+  --play: #ee7e22;
+  --Teams: #d511fc;
+  --Rank: #f07e32;
+  --white: #ffffff;
+  --black: #000000;
 }
 
 .btn {
@@ -36,12 +41,30 @@
   border: none;
 }
 
+.btn--play--solid {
+  background-color: var(--play);
+  color: var(--black);
+  border: none;
+}
+
+.btn--team--solid {
+  background-color: var(--Teams);
+  color: var(--white);
+  border: none;
+}
+
+.btn--rank--solid {
+  background-color: var(--Rank);
+  color: var(--white);
+  border: none;
+}
+
 .btn--small {
   padding: 5px 10px;
   font-size: 20px;
 }
 
 .btn--medium {
-  padding: 10px 20px;
+  padding: 10px 30px;
   font-size: 18px;
 }

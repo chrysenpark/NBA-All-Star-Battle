@@ -27,9 +27,9 @@ app.get('/playerStats', function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     connection.getConnection(function(err, conn) {
         if (err) throw err;
-        conn.query('SELECT name, Cost, Points, Rebounds, Assists, Steals, Blocks, YrsPro, Ranking FROM Player ORDER BY Ranking', function(err, results) {
+        conn.query('SELECT name, Cost, Points, Rebounds, Assists, Steals, Blocks, YrsPro, Image, Ranking FROM Player ORDER BY Ranking', function(err, results) {
             if (err) throw err;
-            res.send(results);
+            res.json(results);
         });
     });
 });

@@ -1,19 +1,19 @@
 .card {
-  background: #fff;
+  background: rgb(255, 255, 255);
   border-radius: 2px;
-  height: 210px;
+  height: 300px;
   margin: 1rem;
   position: relative;
   width: 170px;
   box-shadow: 0 3px 6px #999, 0 3px 6px #999;
-  text-align: left;
 }
 
 .card > .img-container {
   height: 100%;
   overflow: hidden;
   text-align: center;
-  background: rgb(253, 253, 253);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background: rgb(173, 172, 171);
 }
 
 .card > .img-container > img {
