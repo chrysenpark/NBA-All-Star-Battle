@@ -270,7 +270,7 @@ class App extends Component {
                 <SubHeading sub={`Team 2 Budget: ${this.state.budget2}`} />
                 <label>
                     Team:
-                    <select team={this.state.team} onChange={this.handleChange}>
+                    <select team={this.state.team} onChange = {this.handleChange}>
                         <option team="all">All</option>
                         <option team="Lakers">Lakers</option>
                         <option team="Clippers">Clippers</option>
