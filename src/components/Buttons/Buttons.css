@@ -1,0 +1,70 @@
+:root {
+  --primary: #4628ff;
+  --warning: #21d139;
+  --danger: #eb3f27;
+  --play: #ee7e22;
+  --Teams: #d511fc;
+  --Rank: #f07e32;
+  --white: #ffffff;
+  --black: #000000;
+}
+
+.btn {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-top: 1cm;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn--primary--solid {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+}
+
+.btn--danger--solid {
+  background-color: var(--danger);
+  color: var(--white);
+  border: none;
+}
+
+.btn--warning--solid {
+  background-color: var(--warning);
+  color: var(--white);
+  border: none;
+}
+
+.btn--play--solid {
+  background-color: var(--play);
+  color: var(--black);
+  border: none;
+}
+
+.btn--team--solid {
+  background-color: var(--Teams);
+  color: var(--white);
+  border: none;
+}
+
+.btn--rank--solid {
+  background-color: var(--Rank);
+  color: var(--white);
+  border: none;
+}
+
+.btn--small {
+  padding: 5px 10px;
+  font-size: 20px;
+}
+
+.btn--medium {
+  padding: 10px 30px;
+  font-size: 18px;
+}

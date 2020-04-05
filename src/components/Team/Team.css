@@ -1,0 +1,28 @@
+.selected {
+  background: #fff;
+  border-radius: 2px;
+  height: 150px;
+  margin: 2rem;
+
+  position: relative;
+  width: 170px;
+  box-shadow: 0 3px 6px #999, 0 3px 6px #999;
+  text-align: left;
+}
+
+.selected > .img-container {
+  height: 100%;
+  overflow: hidden;
+  text-align: center;
+  background: rgb(218, 203, 5);
+}
+
+.selected > .img-container > img {
+  width: 110%;
+}
+
+.selected:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
