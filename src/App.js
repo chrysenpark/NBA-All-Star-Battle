@@ -216,9 +216,10 @@ class App extends Component {
 
     handleChange = (event) => {
         console.log(event.target.team);
-        this.setState({ team: event.target.team });
+        this.setState({ team: event.target.team});
         console.log(this.state.team);
         this.playersOnTeam(this.state);
+
     };
 
     async stats(s) {
