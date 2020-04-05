@@ -233,7 +233,6 @@ class App extends Component {
     event.preventDefault();
   }
 
-<<<<<<< HEAD
     handleChange = (event) => {
         console.log(event.target.team);
         this.setState({ team: event.target.team});
@@ -241,14 +240,6 @@ class App extends Component {
         this.playersOnTeam(this.state);
 
     };
-=======
-  handleChange = (event) => {
-    console.log(event.target.team);
-    this.setState({ team: event.target.team });
-    console.log(this.state.team);
-    this.playersOnTeam(this.state);
-  };
->>>>>>> a06f2925f496e5d668c8eda22229f168b12d37e7
 
   async stats(s) {
     let r = await fetch(`http://localhost:5000/stats?stat=${s.stats}`);
@@ -290,59 +281,6 @@ class App extends Component {
     this.statsInRange(this.state);
   };
 
-<<<<<<< HEAD
-    // Map over this.state.players and render a player component for each player
-    render() {
-        return (
-            <Wrapper main="NBA All-Star Battle">
-                <Title />
-                <SubHeading main="Choose your Team!" />
-                <SubHeading sub={`Team 1 Budget: ${this.state.budget}`} />
-                <SubHeading sub={`Team 2 Budget: ${this.state.budget2}`} />
-                <label>
-                    Team:
-                    <select team={this.state.team} onChange = {this.handleChange}>
-                        <option team="all">All</option>
-                        <option team="Lakers">Lakers</option>
-                        <option team="Clippers">Clippers</option>
-                        <option team="Bucks">Bucks</option>
-                        <option team="Rockets">Rockets</option>
-                        <option team="Mavericks">Mavericks</option>
-                        <option team="Sixers">Sixers</option>
-                        <option team="Heat">Heat</option>
-                        <option team="Pelicans">Pelicans</option>
-                        <option team="Thunder">Thunder</option>
-                        <option team="Jazz">Jazz</option>
-                        <option team="Celtics">Celtics</option>
-                        <option team="Nuggets">Nuggets</option>
-                        <option team="Raptors">Raptors</option>
-                        <option team="Suns">Suns</option>
-                        <option team="Pacers">Pacers</option>
-                    </select>
-                </label>
-                <label>
-                    Stats:
-                    <select stat={this.state.stats} onChange={this.handleChange1}>
-                        <option stat="all">All</option>
-                        <option stat="PPG">PPG</option>
-                        <option stat="RPG">RPG</option>
-                        <option stat="APG">APG</option>
-                        <option stat="SPG">SPG</option>
-                        <option stat="BPG">BPG</option>
-                    </select>
-                </label>
-                <label>
-                    Range:
-                    <select range={this.state.range} onChange={this.handleChange2}>
-                        <option range="all">All</option>
-                        <option range="15-20">15-20</option>
-                        <option range="20-25">20-25</option>
-                        <option range="25-30">25-30</option>
-                        <option range="30-35">30-35</option>
-                    </select>
-                </label>
-                <Message message={this.clickResult} result={this.state.result} />
-=======
   // Map over this.state.players and render a player component for each player
   render() {
     return (
@@ -394,7 +332,6 @@ class App extends Component {
           </select>
         </label>
         <Message message={this.clickResult} result={this.state.result} />
->>>>>>> a06f2925f496e5d668c8eda22229f168b12d37e7
 
         {this.playerNewStats.map((player) => (
           <Pic
