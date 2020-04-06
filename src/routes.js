@@ -7,7 +7,7 @@ const connection = mysql.createPool({
   port: 3306,
   user: "root",
   database: "nbaduel",
-  password: "beinrodriguez12",
+  password: "yourpasswordhere",
   // queueLimit: 0,
   // connectionLimit: 0,
   // insecureAuth: true
