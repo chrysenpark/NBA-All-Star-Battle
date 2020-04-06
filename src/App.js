@@ -442,6 +442,9 @@ class App extends Component {
                 this.dropPlayerClient(playerIndex, this.playersOnTeam1[0]);
               }
               var playerRemoved = this.playersOnTeam1.pop();
+              this.currPlayer = this.playerNewStats.filter(function (item) {
+                return item.Ranking === playerRemoved;
+              })[0];
               console.log("ID of player removed:");
               console.log(playerRemoved);
               console.log(this.playersOnTeam1.length);
@@ -552,6 +555,9 @@ class App extends Component {
                 this.dropPlayerOpponent(playerIndex, this.playersOnTeam2[0]);
               }
               var playerRemoved = this.playersOnTeam2.pop();
+              this.currPlayer = this.playerNewStats.filter(function (item) {
+                return item.Ranking === playerRemoved;
+              })[0];
               console.log("ID of player removed:");
               console.log(playerRemoved);
               console.log(this.playersOnTeam2.length);
