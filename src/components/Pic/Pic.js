@@ -11,6 +11,7 @@ const Pic = (props) => (
           props.budget(props.id);
         }}
       />
+
       <h6>{props.Cost}</h6>
       <h6>{props.PPG}</h6>
       <h6>{props.RPG}</h6>

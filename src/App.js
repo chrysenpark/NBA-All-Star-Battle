@@ -376,12 +376,12 @@ class App extends Component {
           <Pic
             playerStats={this.playerNewStats}
             budget={this.recordBudget}
-            Cost={`Cost: $${player.Cost}`}
-            PPG={`PPG: ${player.Points}`}
-            RPG={`RPG:${player.Rebounds}`}
-            APG={`APG: ${player.Assists}`}
-            SPG={`SPG: ${player.Steals}`}
-            BPG={`BPG: ${player.Blocks}`}
+            Cost={player.Cost ? `Cost: $ ${player.Cost}` : " "}
+            PPG={player.Points ? `PPG: ${player.Points}` : " "}
+            RPG={player.Rebounds ? `RPG: ${player.Rebounds}` : " "}
+            APG={player.Assists ? `APG: ${player.Assists}` : " "}
+            SPG={player.Steals ? `SPG: ${player.Steals}` : " "}
+            BPG={player.Blocks ? `BPG: ${player.Blocks}` : " "}
             id={player.Ranking}
             key={player.Ranking}
             image={player.Image}
