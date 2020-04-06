@@ -10,6 +10,7 @@ import IndentHeading from "./components/IndentHeading";
 import "./App.css";
 import BattleTitle from "./components/BattleTitle";
 import Button from "./components/Buttons";
+import Table from "react-bootstrap/Table";
 
 class App extends Component {
   // Setting this.state.players to the players json array
@@ -21,7 +22,9 @@ class App extends Component {
     team: "All",
     stats: "All",
     range: "All",
+    aggStat: "Stat"
   };
+  costBreakdown = [{Cost: 1, stat: 0}, {Cost: 2, stat: 0}, {Cost: 3, stat: 0}, {Cost: 4, stat: 0}, {Cost: 5, stat: 0}];
   playersOnTeam1 = [];
   playersOnTeam2 = [];
   playerImages1 = [];
@@ -290,6 +293,26 @@ class App extends Component {
     });
   };
 
+  async groupByCost(s) {
+    let r = await fetch(`http://localhost:5000/groupByCost?stat=${s}`);
+    this.costBreakdown = await r.json();
+    if (s === "SPG" || s === "BPG") {
+      for (let t of this.costBreakdown) {
+        t.stat = t.stat.toFixed(2);
+      }
+    }
+    console.log("Query result");
+    console.log(this.costBreakdown);
+  }
+
+  handleChange3 = (event) => {
+    console.log(event.target.value);
+    this.setState({ aggStat: event.target.value }, () => {
+      console.log(this.state.aggStat);
+      this.groupByCost(this.state.aggStat);
+    });
+  };
+
   // Map over this.state.players and render a player component for each player
   render() {
     return (
@@ -298,6 +321,7 @@ class App extends Component {
         <SubHeading main="Choose your Team!" />
         <SubHeading sub={`Team 1 Budget: ${this.state.budget}`} />
         <SubHeading sub={`Team 2 Budget: ${this.state.budget2}`} />
+        <Message message={""} result={this.state.result} />
         <label>
           Team:
           <select value={this.state.team} onChange={this.handleChange.bind(this)}>
@@ -345,23 +369,60 @@ class App extends Component {
             <option value="30-35">30-35</option>
           </select>
         </label>
+        <Message message={""} result={this.state.fail} />
+        <label>
+          Cost Breakdown:
+          <select
+              value={this.state.aggStat}
+              onChange={this.handleChange3}
+          >
+            <option value="empty"></option>
+            <option value="PPG">PPG</option>
+            <option value="RPG">RPG</option>
+            <option value="APG">APG</option>
+            <option value="SPG">SPG</option>
+            <option value="BPG">BPG</option>
+          </select>
+        </label>
+          <Table striped bordered hover>
+            <thead>
+            <tr>
+              <th> Cost </th>
+              <td> ${this.costBreakdown[0].Cost} </td>
+              <td> ${this.costBreakdown[1].Cost} </td>
+              <td> ${this.costBreakdown[2].Cost} </td>
+              <td> ${this.costBreakdown[3].Cost} </td>
+              <td> ${this.costBreakdown[4].Cost} </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th> AVG {this.state.aggStat}</th>
+              <td> {this.costBreakdown[0].stat}</td>
+              <td> {this.costBreakdown[1].stat}</td>
+              <td> {this.costBreakdown[2].stat}</td>
+              <td> {this.costBreakdown[3].stat}</td>
+              <td> {this.costBreakdown[4].stat}</td>
+            </tr>
+            </tbody>
+          </Table>
         <Message message={this.clickResult} result={this.state.result} />
-
         {this.playerNewStats.map((player) => (
           <Pic
             playerStats={this.playerNewStats}
             budget={this.recordBudget}
-            Cost={`Cost: $${player.Cost}`}
-            PPG={`PPG: ${player.Points}`}
-            RPG={`RPG:${player.Rebounds}`}
-            APG={`APG: ${player.Assists}`}
-            SPG={`SPG: ${player.Steals}`}
-            BPG={`BPG: ${player.Blocks}`}
+            Cost={player.Cost ? `Cost: $ ${player.Cost}` : " "}
+            PPG={player.Points ? `PPG: ${player.Points}` : " "}
+            RPG={player.Rebounds ? `RPG: ${player.Rebounds}` : " "}
+            APG={player.Assists ? `APG: ${player.Assists}` : " "}
+            SPG={player.Steals ? `SPG: ${player.Steals}` : " "}
+            BPG={player.Blocks ? `BPG: ${player.Blocks}` : " "}
             id={player.Ranking}
             key={player.Ranking}
             image={player.Image}
           />
         ))}
+        <Message message={""} result={this.state.fail} />
         <Button
           onClick={() => {
             this.clickPlay = "Players Loaded";
@@ -418,6 +479,9 @@ class App extends Component {
                 this.dropPlayerClient(playerIndex, this.playersOnTeam1[0]);
               }
               var playerRemoved = this.playersOnTeam1.pop();
+              this.currPlayer = this.playerNewStats.filter(function (item) {
+                return item.Ranking === playerRemoved;
+              })[0];
               console.log("ID of player removed:");
               console.log(playerRemoved);
               console.log(this.playersOnTeam1.length);
@@ -528,6 +592,9 @@ class App extends Component {
                 this.dropPlayerOpponent(playerIndex, this.playersOnTeam2[0]);
               }
               var playerRemoved = this.playersOnTeam2.pop();
+              this.currPlayer = this.playerNewStats.filter(function (item) {
+                return item.Ranking === playerRemoved;
+              })[0];
               console.log("ID of player removed:");
               console.log(playerRemoved);
               console.log(this.playersOnTeam2.length);
