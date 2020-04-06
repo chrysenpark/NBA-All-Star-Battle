@@ -23,14 +23,14 @@ class App extends Component {
     stats: "All",
     range: "All",
     aggStat: "Stat",
+    costBreakdown: [
+      { Cost: 5, stat: 0 },
+      { Cost: 4, stat: 0 },
+      { Cost: 3, stat: 0 },
+      { Cost: 2, stat: 0 },
+      { Cost: 1, stat: 0 },
+    ],
   };
-  costBreakdown = [
-    { Cost: 1, stat: 0 },
-    { Cost: 2, stat: 0 },
-    { Cost: 3, stat: 0 },
-    { Cost: 4, stat: 0 },
-    { Cost: 5, stat: 0 },
-  ];
   playersOnTeam1 = [];
   playersOnTeam2 = [];
   playerImages1 = [];
@@ -122,8 +122,6 @@ class App extends Component {
           console.log(this.playersOnTeam1);
           console.log("Index of player just added");
           console.log(this.playersOnTeam1.length);
-          console.log("Team name");
-          console.log(this.state.team1Name);
           console.log(this.playersOnTeam1[0]);
           if (this.playersOnTeam1.length === 1) {
             this.firstPlayerClient(id);
@@ -153,6 +151,7 @@ class App extends Component {
         let newBudget = budget2 - this.currPlayer.Cost;
         if (newBudget >= 0) {
           this.playersOnTeam2.push(id);
+          console.log("Player IDs");
           console.log(this.playersOnTeam2);
           console.log("Index of player just added");
           console.log(this.playersOnTeam2.length);
@@ -270,7 +269,6 @@ class App extends Component {
   handleChange1 = (event) => {
     console.log(event.target.value);
     this.setState({ stats: event.target.value }, () => {
-      console.log(this.state.stat);
       this.stats(this.state);
     });
   };
@@ -294,27 +292,38 @@ class App extends Component {
   handleChange2 = (event) => {
     console.log(event.target.value);
     this.setState({ range: event.target.value }, () => {
-      console.log(this.state.range);
       this.statsInRange(this.state);
     });
   };
 
   async groupByCost(s) {
     let r = await fetch(`http://localhost:5000/groupByCost?stat=${s}`);
-    this.costBreakdown = await r.json();
-    if (s === "SPG" || s === "BPG") {
-      for (let t of this.costBreakdown) {
-        t.stat = t.stat.toFixed(2);
+    let res = await r.json();
+    this.setState({ costBreakdown: res }, () => {
+      if (s === "SPG" || s === "BPG") {
+        for (let t of this.state.costBreakdown) {
+          t.stat = t.stat.toFixed(2);
+        }
+        this.setState({ costBreakdown: this.state.costBreakdown });
+      } else if (s === "Stat") {
+        this.setState({
+          costBreakdown: [
+            { Cost: 5, stat: 0 },
+            { Cost: 4, stat: 0 },
+            { Cost: 3, stat: 0 },
+            { Cost: 2, stat: 0 },
+            { Cost: 1, stat: 0 },
+          ],
+        });
       }
-    }
-    console.log("Query result");
-    console.log(this.costBreakdown);
+      console.log("Query result");
+      console.log(this.state.costBreakdown);
+    });
   }
 
   handleChange3 = (event) => {
     console.log(event.target.value);
     this.setState({ aggStat: event.target.value }, () => {
-      console.log(this.state.aggStat);
       this.groupByCost(this.state.aggStat);
     });
   };
@@ -385,7 +394,7 @@ class App extends Component {
         <label>
           Cost Breakdown:
           <select value={this.state.aggStat} onChange={this.handleChange3}>
-            <option value="empty"></option>
+            <option value="Stat"></option>
             <option value="PPG">PPG</option>
             <option value="RPG">RPG</option>
             <option value="APG">APG</option>
@@ -397,21 +406,21 @@ class App extends Component {
           <thead>
             <tr>
               <th> Cost </th>
-              <td> ${this.costBreakdown[0].Cost} </td>
-              <td> ${this.costBreakdown[1].Cost} </td>
-              <td> ${this.costBreakdown[2].Cost} </td>
-              <td> ${this.costBreakdown[3].Cost} </td>
-              <td> ${this.costBreakdown[4].Cost} </td>
+              <td> ${this.state.costBreakdown[0].Cost} </td>
+              <td> ${this.state.costBreakdown[1].Cost} </td>
+              <td> ${this.state.costBreakdown[2].Cost} </td>
+              <td> ${this.state.costBreakdown[3].Cost} </td>
+              <td> ${this.state.costBreakdown[4].Cost} </td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th> AVG {this.state.aggStat}</th>
-              <td> {this.costBreakdown[0].stat}</td>
-              <td> {this.costBreakdown[1].stat}</td>
-              <td> {this.costBreakdown[2].stat}</td>
-              <td> {this.costBreakdown[3].stat}</td>
-              <td> {this.costBreakdown[4].stat}</td>
+              <td> {this.state.costBreakdown[0].stat}</td>
+              <td> {this.state.costBreakdown[1].stat}</td>
+              <td> {this.state.costBreakdown[2].stat}</td>
+              <td> {this.state.costBreakdown[3].stat}</td>
+              <td> {this.state.costBreakdown[4].stat}</td>
             </tr>
           </tbody>
         </Table>
