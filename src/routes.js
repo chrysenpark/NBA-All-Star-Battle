@@ -64,25 +64,25 @@ app.get("/stats", function (req, res) {
   let PROJECT_QUERY;
   switch (stat) {
     case "All":
-      PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks, Image, Ranking FROM Player ORDER BY Points DESC`;
+      PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks, Image, Ranking, Cost FROM Player ORDER BY Points DESC`;
       break;
     case "PPG":
-      PROJECT_QUERY = `SELECT Name, Points, Image, Ranking FROM Player ORDER BY Points DESC`;
+      PROJECT_QUERY = `SELECT Name, Points, Image, Ranking, Cost FROM Player ORDER BY Points DESC`;
       break;
     case "RPG":
-      PROJECT_QUERY = `SELECT Name, Rebounds, Image, Ranking FROM Player ORDER BY Rebounds DESC`;
+      PROJECT_QUERY = `SELECT Name, Rebounds, Image, Ranking, Cost FROM Player ORDER BY Rebounds DESC`;
       break;
     case "APG":
-      PROJECT_QUERY = `SELECT Name, Assists, Image, Ranking FROM Player ORDER BY Assists DESC`;
+      PROJECT_QUERY = `SELECT Name, Assists, Image, Ranking, Cost FROM Player ORDER BY Assists DESC`;
       break;
     case "SPG":
-      PROJECT_QUERY = `SELECT Name, Steals, Image, Ranking FROM Player ORDER BY Steals DESC`;
+      PROJECT_QUERY = `SELECT Name, Steals, Image, Ranking, Cost FROM Player ORDER BY Steals DESC`;
       break;
     case "BPG":
-      PROJECT_QUERY = `SELECT Name, Blocks, Image, Ranking FROM Player ORDER BY Blocks DESC`;
+      PROJECT_QUERY = `SELECT Name, Blocks, Image, Ranking, Cost FROM Player ORDER BY Blocks DESC`;
       break;
     default:
-      PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks, Image, Ranking FROM Player ORDER BY Points DESC`;
+      PROJECT_QUERY = `SELECT Name, Points, Rebounds, Assists, Steals, Blocks, Image, Ranking, Cost FROM Player ORDER BY Points DESC`;
       break;
   }
   console.log(PROJECT_QUERY);
@@ -157,6 +157,42 @@ app.get("/statsInRange", function (req, res) {
   connection.getConnection(function (err, conn) {
     if (err) throw err;
     conn.query(PROJECT_QUERY, function (err, results) {
+      if (err) throw err;
+      res.send(results);
+    });
+  });
+});
+
+app.get("/groupByCost", function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  let { stat } = req.query;
+  stat = stat.toUpperCase();
+  console.log(stat);
+  let AGG_QUERY;
+  switch (stat) {
+    case "PPG":
+      AGG_QUERY = `SELECT Cost, AVG(Points) AS stat FROM Player GROUP BY Cost ORDER BY Cost DESC`;
+      break;
+    case "RPG":
+      AGG_QUERY = `SELECT Cost, AVG(Rebounds) AS stat FROM Player GROUP BY Cost ORDER BY Cost DESC`;
+      break;
+    case "APG":
+      AGG_QUERY = `SELECT Cost, AVG(Assists) AS stat FROM Player GROUP BY Cost ORDER BY Cost DESC`;
+      break;
+    case "SPG":
+      AGG_QUERY = `SELECT Cost, AVG(Steals) AS stat FROM Player GROUP BY Cost ORDER BY Cost DESC`;
+      break;
+    case "BPG":
+      AGG_QUERY = `SELECT Cost, AVG(Blocks) AS stat FROM Player GROUP BY Cost ORDER BY Cost DESC`;
+      break;
+    default:
+      AGG_QUERY = `SELECT Cost, AVG(Points) AS stat FROM Player GROUP BY Cost ORDER BY Cost DESC`;
+      break;
+  }
+  console.log(AGG_QUERY);
+  connection.getConnection(function (err, conn) {
+    if (err) throw err;
+    conn.query(AGG_QUERY, function (err, results) {
       if (err) throw err;
       res.send(results);
     });
@@ -367,4 +403,7 @@ app.listen(5000, () => {
   console.log("Go to http://localhost:5000/coach to see coach data");
   console.log("Go to http://localhost:5000/playerStats to see player stats");
   console.log("Go to http://localhost:5000/playerCosts to see player costs");
+  console.log(
+    "Go to http://localhost:5000/groupByCost?stat=APG to see AVG points per cost"
+  );
 });
