@@ -355,8 +355,7 @@ class App extends Component {
             <option value="30-35">30-35</option>
           </select>
         </label>
-        <Message message={this.clickResult} result={this.state.result} />
-
+        <Message message={""} result={this.state.fail} />
         <label>
           Cost Breakdown:
           <select
@@ -371,7 +370,7 @@ class App extends Component {
             <option value="BPG">BPG</option>
           </select>
         </label>
-        <Message message={""} result={this.state.result} />
+        <Message message={this.clickResult} result={this.state.result} />
 
         {this.playerNewStats.map((player) => (
           <Pic
@@ -388,6 +387,7 @@ class App extends Component {
             image={player.Image}
           />
         ))}
+        <Message message={""} result={this.state.fail} />
         <Button
           onClick={() => {
             this.clickPlay = "Players Loaded";
