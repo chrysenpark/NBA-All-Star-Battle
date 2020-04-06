@@ -300,6 +300,8 @@ class App extends Component {
         <SubHeading main="Choose your Team!" />
         <SubHeading sub={`Team 1 Budget: ${this.state.budget}`} />
         <SubHeading sub={`Team 2 Budget: ${this.state.budget2}`} />
+        <Message message={""} result={this.state.result} />
+
         <label>
           Team:
           <select
@@ -355,6 +357,22 @@ class App extends Component {
         </label>
         <Message message={this.clickResult} result={this.state.result} />
 
+        <label>
+          Cost Breakdown:
+          <select
+            value={this.state.stats}
+            onChange={this.handleChange2.bind(this)}
+          >
+            <option value="empty"></option>
+            <option value="PPG">PPG</option>
+            <option value="RPG">RPG</option>
+            <option value="APG">APG</option>
+            <option value="SPG">SPG</option>
+            <option value="BPG">BPG</option>
+          </select>
+        </label>
+        <Message message={""} result={this.state.result} />
+
         {this.playerNewStats.map((player) => (
           <Pic
             playerStats={this.playerNewStats}
@@ -387,20 +405,6 @@ class App extends Component {
         >
           Play!
         </Button>
-        <label>
-          Cost Breakdown:
-          <select
-            value={this.state.stats}
-            onChange={this.handleChange2.bind(this)}
-          >
-            <option value="empty"></option>
-            <option value="PPG">PPG</option>
-            <option value="RPG">RPG</option>
-            <option value="APG">APG</option>
-            <option value="SPG">SPG</option>
-            <option value="BPG">BPG</option>
-          </select>
-        </label>
         <Message message={this.clickPlay} result={this.state.fail} />
         <BattleTitle />
         <IndentHeading main="Team Big Ballers:" />
