@@ -552,16 +552,6 @@ class App extends Component {
           Battle
         </Button>
         <Message message={this.BattleStatus} result={this.state.fail} />
-        <Button
-          onClick={() => {
-            console.log("sum");
-          }}
-          type="button"
-          buttonStyle="btn--team--solid"
-          buttonSize="btn-small"
-        >
-          Show Total Team Stats
-        </Button>
         <IndentHeading main="Team Ankle Breakers:" />
         {this.playerImages2.map((player) => (
           <Team2 image={player} />
