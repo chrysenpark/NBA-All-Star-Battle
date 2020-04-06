@@ -388,8 +388,6 @@ class App extends Component {
             image={player.Image}
           />
         ))}
-        <Message message={""} result={this.state.result} />
-
         <Button
           onClick={() => {
             this.clickPlay = "Players Loaded";
