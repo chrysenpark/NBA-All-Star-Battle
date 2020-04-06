@@ -223,9 +223,12 @@ class App extends Component {
 
   async playersOnTeam(s) {
     let r = await fetch(`http://localhost:5000/playersOnTeam?team=${s.team}`);
-    let res = await r.json();
-    console.log("query results");
-    console.log(res);
+    this.playerNewStats = await r.json();
+    // let res = await r.json();
+    this.setState({playerStats: this.playerNewStats}, () => {
+      console.log("query results");
+      console.log(this.state.playerStats);
+    });
   }
 
   handleSubmit(event) {
@@ -234,18 +237,20 @@ class App extends Component {
   }
 
     handleChange = (event) => {
-        console.log(event.target.team);
-        this.setState({ team: event.target.team});
-        console.log(this.state.team);
-        this.playersOnTeam(this.state);
-
+        console.log(event.target.value);
+        this.setState({team: event.target.value}, () => {
+          console.log(this.state.team);
+          this.playersOnTeam(this.state);
+        });
     };
 
   async stats(s) {
     let r = await fetch(`http://localhost:5000/stats?stat=${s.stats}`);
-    let res = await r.json();
-    console.log("query results");
-    console.log(res);
+    this.playerNewStats = await r.json();
+    this.setState({playerStats: this.playerNewStats}, () => {
+      console.log("query results");
+      console.log(this.state.playerStats);
+    });
   }
 
   handleSubmit1(event) {
@@ -254,19 +259,22 @@ class App extends Component {
   }
 
   handleChange1 = (event) => {
-    console.log(event.target.stat);
-    this.setState({ stats: event.target.stat });
-    console.log(this.state.stat);
-    this.stats(this.state);
+    console.log(event.target.value);
+    this.setState({ stats: event.target.value }, () => {
+      console.log(this.state.stat);
+      this.stats(this.state);
+    });
   };
 
   async statsInRange(s) {
     let r = await fetch(
       `http://localhost:5000/statsInRange?stat=${s.stats}&range=${s.range}`
     );
-    let res = await r.json();
-    console.log("query results");
-    console.log(res);
+    this.playerNewStats = await r.json();
+    this.setState({playerStats: this.playerNewStats}, () => {
+      console.log("query results");
+      console.log(this.state.playerStats);
+    });
   }
 
   handleSubmit2(event) {
@@ -275,10 +283,11 @@ class App extends Component {
   }
 
   handleChange2 = (event) => {
-    console.log(event.target.range);
-    this.setState({ range: event.target.range });
-    console.log(this.state.range);
-    this.statsInRange(this.state);
+    console.log(event.target.value);
+    this.setState({ range: event.target.value }, () => {
+      console.log(this.state.range);
+      this.statsInRange(this.state);
+    });
   };
 
   // Map over this.state.players and render a player component for each player
@@ -291,44 +300,49 @@ class App extends Component {
         <SubHeading sub={`Team 2 Budget: ${this.state.budget2}`} />
         <label>
           Team:
-          <select team={this.state.team} onChange={this.handleChange}>
-            <option team="all">All</option>
-            <option team="Lakers">Lakers</option>
-            <option team="Clippers">Clippers</option>
-            <option team="Bucks">Bucks</option>
-            <option team="Rockets">Rockets</option>
-            <option team="Mavericks">Mavericks</option>
-            <option team="Sixers">Sixers</option>
-            <option team="Heat">Heat</option>
-            <option team="Pelicans">Pelicans</option>
-            <option team="Thunder">Thunder</option>
-            <option team="Jazz">Jazz</option>
-            <option team="Celtics">Celtics</option>
-            <option team="Nuggets">Nuggets</option>
-            <option team="Raptors">Raptors</option>
-            <option team="Suns">Suns</option>
-            <option team="Pacers">Pacers</option>
+          <select value={this.state.team} onChange={this.handleChange.bind(this)}>
+            <option value="all">All</option>
+            <option value="Lakers">Lakers</option>
+            <option value="Clippers">Clippers</option>
+            <option value="Bucks">Bucks</option>
+            <option value="Rockets">Rockets</option>
+            <option value="Mavericks">Mavericks</option>
+            <option value="76ers">76ers</option>
+            <option value="Heat">Heat</option>
+            <option value="Pelicans">Pelicans</option>
+            <option value="Thunder">Thunder</option>
+            <option value="Jazz">Jazz</option>
+            <option value="Celtics">Celtics</option>
+            <option value="Nuggets">Nuggets</option>
+            <option value="Raptors">Raptors</option>
+            <option value="Suns">Suns</option>
+            <option value="Pacers">Pacers</option>
+            <option value="Trail Blazers">Trail Blazers</option>
+            <option value="Hawks">Hawks</option>
           </select>
         </label>
         <label>
           Stats:
-          <select stat={this.state.stats} onChange={this.handleChange1}>
-            <option stat="all">All</option>
-            <option stat="PPG">PPG</option>
-            <option stat="RPG">RPG</option>
-            <option stat="APG">APG</option>
-            <option stat="SPG">SPG</option>
-            <option stat="BPG">BPG</option>
+          <select value={this.state.stats} onChange={this.handleChange1.bind(this)}>
+            <option value="all">All</option>
+            <option value="PPG">PPG</option>
+            <option value="RPG">RPG</option>
+            <option value="APG">APG</option>
+            <option value="SPG">SPG</option>
+            <option value="BPG">BPG</option>
           </select>
         </label>
         <label>
           Range:
-          <select range={this.state.range} onChange={this.handleChange2}>
-            <option range="all">All</option>
-            <option range="15-20">15-20</option>
-            <option range="20-25">20-25</option>
-            <option range="25-30">25-30</option>
-            <option range="30-35">30-35</option>
+          <select value={this.state.range} onChange={this.handleChange2}>
+            <option value="all">All</option>
+            <option value="0-5">0-5</option>
+            <option value="5-10">5-10</option>
+            <option value="10-15">10-15</option>
+            <option value="15-20">15-20</option>
+            <option value="20-25">20-25</option>
+            <option value="25-30">25-30</option>
+            <option value="30-35">30-35</option>
           </select>
         </label>
         <Message message={this.clickResult} result={this.state.result} />
